@@ -38,6 +38,8 @@ redis-server:
       bind: 0.0.0.0
       port: 6379
       maxmemory: 0
+      loglevel: notice
+      databases: 1
     - require:
       - pkg: redis-server
 
