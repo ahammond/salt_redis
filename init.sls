@@ -2,7 +2,7 @@ deb http://ppa.launchpad.net/rwky/redis/ubuntu precise main:
   pkgrepo.managed:
     - dist: precise
     - file: /etc/apt/sources.list.d/redis.list
-    - keyid: 5862E31D
+    - keyid: 6BEA97CEAC3CA381594EFA2CDBB0271C5862E31D
     - keyserver: keyserver.ubuntu.com
     - require_in:
       - pkg: redis-server
