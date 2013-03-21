@@ -32,7 +32,7 @@ redis-server:
 
 /etc/redis/redis.conf:
   file.managed:
-    - source: salt://logstash/files/etc/redis/redis.conf.jinja
+    - source: salt://redis/files/etc/redis/redis.conf.jinja
     - template: jinja
     - defaults:
       bind: 0.0.0.0
