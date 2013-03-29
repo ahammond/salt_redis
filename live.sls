@@ -36,7 +36,6 @@ redislive:
   user.present:
     - system: True
     - home: {{ dir }}
-    - password: '*'
     - gid_from_name: True
 
 {% set monitor_init = '/etc/init/Redislive_monitor.conf' %}
