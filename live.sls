@@ -2,6 +2,9 @@
 {% set RedisLive_dir = '/srv/RedisLive' %}
 {% set RedisLive_virtualenv = '/srv/RedisLive_virtualenv' %}
 
+git:
+  pkg.installed
+
 {{ RedisLive_git }}:
   git.latest:
     - rev: master
