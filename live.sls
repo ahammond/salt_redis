@@ -1,7 +1,7 @@
 {% set git = 'https://github.com/kumarnitin/RedisLive.git' %}
 {% set dir = '/srv/RedisLive' %}
 {% set conf = '{}/src/redis-live.conf'.format(dir) %}
-{% set virtualenv = '/srv/virtualenv' %}
+{% set virtualenv = '/srv/RedisLive_virtualenv' %}
 {% set duration = 120 %}
 
 include:
