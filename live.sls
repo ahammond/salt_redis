@@ -1,5 +1,7 @@
 {% set git = 'https://github.com/kumarnitin/RedisLive.git' %}
 {% set dir = '/srv/RedisLive' %}
+{% set web = '{}/src/redis-live.py'.format(dir) %}
+{% set monitor = '{}/src/redis-monitor.py'.format(dir) %}
 {% set conf = '{}/src/redis-live.conf'.format(dir) %}
 {% set virtualenv = '/srv/RedisLive_virtualenv' %}
 {% set duration = 120 %}
@@ -25,6 +27,20 @@ git:
       - pkg: python-virtualenv
       - git: {{ git }}
 
+{{ web }}:
+  file.sed:
+    - before: /usr/bin/env python
+    - after: {{ virtualenv }}/bin/python
+    - limit: ^#!
+    - requires: git: {{ git }}
+
+{{ monitor }}:
+  file.sed:
+    - before: /usr/bin/env python
+    - after: {{ virtualenv }}/bin/python
+    - limit: ^#!
+    - requires: git: {{ git }}
+
 {{ conf }}:
   file.managed:
     - source: salt://redis/files{{ conf }}.jinja
@@ -43,7 +59,6 @@ redislive:
   file.managed:
     - source: salt://redis/files{{ monitor_init }}.sls
     - template: jinja
-    - python: {{ virtualenv }}/bin/python
     - dir: {{ dir }}/src
     - duration: {{ duration }}
 
@@ -53,6 +68,7 @@ RedisLive_monitor:
     - reload: True
     - require:
       - user: redislive
+      - file: {{ monitor }}
       - file: {{ monitor_init }}
       - virtualenv: {{ virtualenv }}
     - watch:
@@ -63,5 +79,16 @@ RedisLive_monitor:
   file.managed:
     - source: salt://redis/files{{ web_init }}.sls
     - template: jinja
-    - python: {{ virtualenv }}/bin/python
     - dir: {{ dir }}/src
+
+RedisLive_web:
+  service.running:
+    - enable: True
+    - reload: True
+    - require:
+      - user: redislive
+      - file: {{ web }}
+      - file: {{ web_init }}
+      - virtualenv: {{ virtualenv }}
+    - watch:
+      - file: {{ conf }}
