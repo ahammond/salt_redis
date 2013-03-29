@@ -32,14 +32,16 @@ git:
     - before: /usr/bin/env python
     - after: {{ virtualenv }}/bin/python
     - limit: ^#!
-    - requires: git: {{ git }}
+    - requires:
+      - git: {{ git }}
 
 {{ monitor }}:
   file.sed:
     - before: /usr/bin/env python
     - after: {{ virtualenv }}/bin/python
     - limit: ^#!
-    - requires: git: {{ git }}
+    - requires:
+      - git: {{ git }}
 
 {{ conf }}:
   file.managed:
