@@ -35,6 +35,7 @@ git:
 redislive:
   user.present:
     - system: True
+    - home: {{ dir }}
     - password: '*'
     - gid_from_name: True
 
