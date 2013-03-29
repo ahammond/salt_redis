@@ -32,3 +32,8 @@ git:
     - require:
       - git: {{ git }}
 
+redislive:
+  user.present:
+    - system: True
+    - password: '*'
+    - gid_from_name: True
