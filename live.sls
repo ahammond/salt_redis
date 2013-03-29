@@ -57,3 +57,11 @@ RedisLive_monitor:
       - virtualenv: {{ virtualenv }}
     - watch:
       - file: {{ conf }}
+
+{% set web_init = '/etc/init/RedisLive_web.conf' %}
+{{ web_init }}:
+  file.managed:
+    - source: salt://redis/files{{ web_init }}.sls
+    - template: jinja
+    - python: {{ virtualenv }}/bin/python
+    - dir: {{ dir }}/src
