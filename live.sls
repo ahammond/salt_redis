@@ -44,5 +44,5 @@ redislive:
     - source: salt://redis/files/{{ monitor_init }}.sls
     - template: jinja
     - python: {{ virtualenv }}/bin/python
-    - dir: {{ dir }}
+    - dir: {{ dir }}/src
     - duration: {{ duration }}
