@@ -38,7 +38,7 @@ redislive:
     - password: '*'
     - gid_from_name: True
 
-{% set monitor_init = '/etc/init/Redislive_monitor.conf' %}:
+{% set monitor_init = '/etc/init/Redislive_monitor.conf' %}
 {{ monitor_init }}:
   file.managed:
     - source: salt://redis/files/{{ monitor_init }}.sls
