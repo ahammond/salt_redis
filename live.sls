@@ -46,3 +46,14 @@ redislive:
     - python: {{ virtualenv }}/bin/python
     - dir: {{ dir }}/src
     - duration: {{ duration }}
+
+RedisLive_monitor:
+  service.running:
+    - enable: True
+    - reload: True
+    - require:
+      - user: redislive
+      - file: {{ monitor_init }}
+      - virtualenv: {{ virtualenv }}
+    - watch:
+      - file: {{ conf }}
