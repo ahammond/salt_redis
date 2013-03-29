@@ -9,6 +9,8 @@ git:
   git.latest:
     - rev: master
     - target: {{ RedisLive_dir }}
+    - require:
+      - pkg: git
 
 {{ RedisLive_virtualenv }}:
   virtualenv.managed:
