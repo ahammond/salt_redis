@@ -26,6 +26,6 @@ git:
 
 {{ RedisLive_conf }}:
   file.managed:
-    - source: salt://files/{{ RedisLive_conf }}.jinja
+    - source: salt://files{{ RedisLive_conf }}.jinja
     - template: jinja
 
