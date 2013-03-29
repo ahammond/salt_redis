@@ -56,41 +56,41 @@ redislive:
     - home: {{ dir }}
     - gid_from_name: True
 
-{% set monitor_init = '/etc/init/RedisLive_monitor.conf' %}
-{{ monitor_init }}:
+{% set redis-monitor-init = '/etc/init/redis-monitor.conf' %}
+{{ redis-monitor-init }}:
   file.managed:
-    - source: salt://redis/files{{ monitor_init }}.sls
+    - source: salt://redis/files{{ redis-monitor-init }}.sls
     - template: jinja
     - dir: {{ dir }}/src
     - duration: {{ duration }}
 
-RedisLive_monitor:
+redis-monitor:
   service.running:
     - enable: True
     - reload: True
     - require:
       - user: redislive
       - file: {{ monitor }}
-      - file: {{ monitor_init }}
+      - file: {{ redis-monitor-init }}
       - virtualenv: {{ virtualenv }}
     - watch:
       - file: {{ conf }}
 
-{% set web_init = '/etc/init/RedisLive_web.conf' %}
-{{ web_init }}:
+{% set redis-live-init = '/etc/init/redis-live.conf' %}
+{{ redis-live-init }}:
   file.managed:
-    - source: salt://redis/files{{ web_init }}.sls
+    - source: salt://redis/files{{ redis-live-init }}.sls
     - template: jinja
     - dir: {{ dir }}/src
 
-RedisLive_web:
+redis-live:
   service.running:
     - enable: True
     - reload: True
     - require:
       - user: redislive
       - file: {{ web }}
-      - file: {{ web_init }}
+      - file: {{ redis-live-init }}
       - virtualenv: {{ virtualenv }}
     - watch:
       - file: {{ conf }}
