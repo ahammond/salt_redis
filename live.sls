@@ -4,7 +4,7 @@
 
 {{ RedisLive_git }}:
   git.latest:
-    - rev: master   # Yeah...
+    - rev: master
     - target: {{ RedisLive_dir }}
 
 {{ RedisLive_virtualenv }}:
