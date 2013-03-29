@@ -1,7 +1,8 @@
-{% set RedisLive_git = 'https://github.com/kumarnitin/RedisLive.git' %}
-{% set RedisLive_dir = '/srv/RedisLive' %}
-{% set RedisLive_conf = '{}/src/redis-live.conf'.format(RedisLive_dir) %}
-{% set RedisLive_virtualenv = '/srv/RedisLive_virtualenv' %}
+{% set git = 'https://github.com/kumarnitin/RedisLive.git' %}
+{% set dir = '/srv/RedisLive' %}
+{% set conf = '{}/src/redis-live.conf'.format(dir) %}
+{% set virtualenv = '/srv/virtualenv' %}
+{% set duration = 120 %}
 
 include:
   - python
@@ -9,23 +10,25 @@ include:
 git:
   pkg.installed
 
-{{ RedisLive_git }}:
+{{ git }}:
   git.latest:
     - rev: master
-    - target: {{ RedisLive_dir }}
+    - target: {{ dir }}
     - require:
       - pkg: git
 
-{{ RedisLive_virtualenv }}:
+{{ virtualenv }}:
   virtualenv.managed:
-    - requirements: {{ RedisLive_dir }}/requirements.txt
+    - requirements: {{ dir }}/requirements.txt
     - require:
       - pkg: python-pip
       - pkg: python-virtualenv
-      - git: {{ RedisLive_git }}
+      - git: {{ git }}
 
-{{ RedisLive_conf }}:
+{{ conf }}:
   file.managed:
-    - source: salt://redis/files{{ RedisLive_conf }}.jinja
+    - source: salt://redis/files{{ conf }}.jinja
     - template: jinja
+    - require:
+      - git: {{ git }}
 
