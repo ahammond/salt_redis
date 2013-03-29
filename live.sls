@@ -37,3 +37,12 @@ redislive:
     - system: True
     - password: '*'
     - gid_from_name: True
+
+{% set monitor_init = /etc/init/RedisLive_monitor.conf %}:
+{{ monitor_init }}:
+  file.managed:
+    - source: salt://redis/files/{{ monitor_init }}.sls
+    - template: jinja
+    - python: {{ virtualenv }}/bin/python
+    - dir: {{ dir }}
+    - duration: {{ duration }}
