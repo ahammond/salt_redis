@@ -8,4 +8,4 @@ stop on runlevel [!2345]
 respawn
 respawn limit 10 5
 
-exec /sbin/start-stop-daemon --start --chuid redislive --chdir /srv/RedisLive --pidfile /var/run/RedisLive_monitor.pid --make-pidfile --exec {{ python }} {{ dir }}/redis-monitor.py --duration={{ duration }}
+exec /sbin/start-stop-daemon --start --chuid redislive --chdir /srv/RedisLive --pidfile /var/run/RedisLive_monitor.pid --make-pidfile --exec {{ python }} {{ dir }}/src/redis-monitor.py --duration={{ duration }}
