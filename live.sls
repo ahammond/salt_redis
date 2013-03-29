@@ -2,6 +2,9 @@
 {% set RedisLive_dir = '/srv/RedisLive' %}
 {% set RedisLive_virtualenv = '/srv/RedisLive_virtualenv' %}
 
+include:
+  - python
+
 git:
   pkg.installed
 
@@ -17,5 +20,7 @@ git:
     - python: python2.7
     - requirements: {{ RedisLive_dir }}/requirements.txt
     - require:
+      - pkg: python-pip
+      - pkg: python-virtualenv
       - git: {{ RedisLive_git }}
 
