@@ -29,7 +29,6 @@ git:
     - recurse:
       - user
       - group
-      - mode
     - require:
       - git: {{ git }}
       - user: redislive
