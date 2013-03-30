@@ -1,5 +1,6 @@
 {% set git = 'https://github.com/kumarnitin/RedisLive.git' %}
 {% set dir = '/srv/RedisLive' %}
+{% set sqlite = '{}/src/db'.format(dir) %}
 {% set web = '{}/src/redis-live.py'.format(dir) %}
 {% set monitor = '{}/src/redis-monitor.py'.format(dir) %}
 {% set conf = '{}/src/redis-live.conf'.format(dir) %}
@@ -18,6 +19,20 @@ git:
     - target: {{ dir }}
     - require:
       - pkg: git
+
+{{ sqlite }}:
+  file.directory:
+    - user: redislive
+    - group: redislive
+    - dir_mode: 755
+    - file_mode: 644
+    - recurse:
+      - user
+      - group
+      - mode
+    - require:
+      - git: {{ git }}
+      - user: redislive
 
 {{ virtualenv }}:
   virtualenv.managed:
