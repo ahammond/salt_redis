@@ -69,6 +69,8 @@ redislive:
     - system: True
     - home: {{ dir }}
     - gid_from_name: True
+    - requires:
+        - git: {{ git }}  {# arguably less dirty than having git --force #}
 
 {% set redis_live_init = '/etc/init/redis-live.conf' %}
 {{ redis_live_init }}:
