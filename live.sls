@@ -7,11 +7,14 @@
 {% set virtualenv = '/srv/RedisLive_virtualenv' %}
 {% set duration = 120 %}
 
-include:
-  - python
-
 git:
   pkg.installed
+
+basic_python_packages:
+  pkg.installed:
+    - pkgs:
+      - python-pip
+      - python-virtualenv
 
 {{ git }}:
   git.latest:
@@ -37,8 +40,7 @@ git:
   virtualenv.managed:
     - requirements: {{ dir }}/requirements.txt
     - require:
-      - pkg: python-pip
-      - pkg: python-virtualenv
+      - pkg: basic_python_packages
       - git: {{ git }}
 
 {{ web }}:
