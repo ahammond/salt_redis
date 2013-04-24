@@ -91,10 +91,10 @@ redis-live:
     - watch:
       - file: {{ conf }}
 
-/srv/RedisLive/src/redis-monit.py --duration=120:
+cd /srv/RedisLive/src; ./redis-monitor.py --duration=120:
   cron.present:
     - user: redislive
-    - minute: '2'
+    - minute: '*/2'
     - require:
       - user: redislive
       - file: {{ sqlite }}
