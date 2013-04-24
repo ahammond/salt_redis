@@ -94,7 +94,7 @@ redis-live:
 cd /srv/RedisLive/src; ./redis-monitor.py --duration=120:
   cron.present:
     - user: redislive
-    - minute: '*/2'
+    - minute: '2,32'
     - require:
       - user: redislive
       - file: {{ sqlite }}
